@@ -36,15 +36,15 @@ const relatedPosts = await getRelatedPosts("es", post);
         }
       </div>
       <h2
-        class="text-rose-600 text-2xl font-light border-b-2 border-rose-600 pb-2 mb-1"
+        class="text-rose-600 text-2xl font-light border-b-2 border-rose-600 pb-2 mb-1 mx-0 sm:mx-4 xl:mx-0"
       >
         {post.data.title}
       </h2>
-      <div class="text-slate-500 text-sm mb-2">
+      <div class="text-slate-500 text-sm mb-2 mx-0 sm:mx-4 xl:mx-0">
         {format(post.data.date, "d ' de ' MMMM ' del ' yyyy ' a las ' HH:mm")}
       </div>
     </header>
-    <div class="flex flex-col md:flex-row gap-4">
+    <div class="flex flex-col md:flex-row gap-4 mx-0 sm:mx-4 xl:mx-0">
       <main class="px-4 md:px-0 w-full md:w-2/3 flex justify-center">
         <div class="prose prose-rose prose-invert w-full">
           <Content />
