@@ -4,10 +4,8 @@ title: "Ĉu mi rememoras?"
 excerpt: "Ĉu mi rememoras kial skribi esperante? Mi volas skribi ion sen serĉi en la vortaro."
 date: 2024-09-05T23:40:00
 image: "../../../assets/blog/2024/09/esperanto.jpeg"
-category: esperanto
 tags:
   - personal
-  - esperanto
 ---
 Mi iam estis feroca samideano. Mi instruis amikojn kaj eĉ mian edzinon.
 

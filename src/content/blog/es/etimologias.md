@@ -4,10 +4,8 @@ title: "Etimologías o 'Las historias de cada palabra'"
 excerpt: "Cuando era niño había una pregunta que frecuentemente me atacaba como un calambre en el seso: '¿quién inventó tal o cual palabra?'"
 date: 2024-09-13T11:03:00
 image: "../../../assets/blog/2024/09/etimologias.jpeg"
-category: personal
 tags:
   - personal
-  - lenguaje
 ---
 Cuando era niño había una pregunta que frecuentemente me atacaba como un calambre en el seso: "¿quién inventó tal o cual palabra?" Como si la respuesta fuera tan fácil —y tan documentada— como para escupir un nombre y una fecha saciando mi sed de curiosidad: Obviamente "salpullido" lo inventó Juan Salpullido en 1615.
 

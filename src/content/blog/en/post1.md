@@ -1,9 +1,10 @@
 ---
-title: Lorem ipsum
-excerpt: Lorem ipsum dolor sit amet
-date: 2024-11-06T11:17:00
-language: en
+slug: post1
+title: "This is just a test"
+excerpt: "Trying to bring in multilanguage awesomeness to this blog"
+date: 2024-11-08T11:21:00
+image: "../../../assets/blog/2024/08/astro.jpeg"
 tags:
-  - personal
+  - software-engineering
 ---
 Lorem ipsum dolor sit amet in english
