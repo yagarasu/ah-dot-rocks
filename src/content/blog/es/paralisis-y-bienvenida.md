@@ -5,7 +5,6 @@ excerpt: "Página en blanco. El terror de mancillar el potencial infinito. En es
 date: 2024-08-19T23:35:00
 image: "../../../assets/blog/2024/08/blankpage.jpeg"
 language: es
-category: personal
 tags:
   - personal
   - bienvenida
