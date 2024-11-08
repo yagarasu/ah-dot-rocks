@@ -4,6 +4,7 @@ title: "Etimologías o 'Las historias de cada palabra'"
 excerpt: "Cuando era niño había una pregunta que frecuentemente me atacaba como un calambre en el seso: '¿quién inventó tal o cual palabra?'"
 date: 2024-09-13T11:03:00
 image: "../../../assets/blog/2024/09/etimologias.jpeg"
+language: es
 tags:
   - personal
 ---

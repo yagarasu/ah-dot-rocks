@@ -4,6 +4,7 @@ title: "Parálisis por análisis y bienvenida"
 excerpt: "Página en blanco. El terror de mancillar el potencial infinito. En ese estado no hay equivocaciones. Lo difícil es dar ese primer paso con convicción y no sentir que al dar la primera pincelada hemos colapsado el universo de posibilidades en un rancio camino que tal vez no lleve a ninguna parte."
 date: 2024-08-19T23:35:00
 image: "../../../assets/blog/2024/08/blankpage.jpeg"
+language: es
 category: personal
 tags:
   - personal
