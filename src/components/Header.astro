@@ -1,14 +1,8 @@
 ---
 import { Icon } from "astro-icon/components";
 import Logo from "./Logo.astro";
-import {
-  getLabelByLocale,
-  getLocaleFromOtherLocale,
-  getLocaleRoute,
-} from "../utils/i18n";
+import { getLabelByLocale, getLocaleRoute } from "../utils/i18n";
 import LanguageSwitch from "./LanguageSwitch.astro";
-
-const currentURL = Astro.url;
 
 const cLocale = Astro.currentLocale ?? "es";
 const dLocale = Astro.preferredLocale ?? "es";
@@ -88,17 +82,15 @@ const menuItems = [
                 <a
                   href={item.href}
                   title={item.label}
-                  class:list={[
-                    "w-full p-2 flex flex-row gap-2 align-middle",
-                    {
-                      ["border-rose-700 border-b-2"]:
-                        item.href === currentURL.pathname,
-                    },
-                  ]}
+                  class="navbar-item w-full p-2 flex flex-row gap-2 align-middle"
                 >
                   <Icon name={item.icon} class="inline-block size-4" />
-                  <span class="flex-grow
-                   hidden lg:inline">{item.label}</span>
+                  <span
+                    class="flex-grow
+                   hidden lg:inline"
+                  >
+                    {item.label}
+                  </span>
                 </a>
               </li>
             )
@@ -125,13 +117,7 @@ const menuItems = [
             <hr class="my-4" />
           ) : (
             <li>
-              <a
-                href={item.href}
-                class:list={[
-                  "w-full p-2 block",
-                  { ["bg-rose-600"]: item.href === currentURL.pathname },
-                ]}
-              >
+              <a href={item.href} class="navbar-menu-item w-full p-2 block">
                 <Icon name={item.icon} class="inline-block mr-2" />
                 {item.label}
               </a>
@@ -145,3 +131,26 @@ const menuItems = [
     </div>
   </nav>
 </header>
+
+<script>
+  window.addEventListener("load", () => {
+    const path = location.href;
+    const buttons = document.getElementsByClassName(
+      "navbar-item"
+    ) as HTMLCollectionOf<HTMLAnchorElement>;
+    for (const button of buttons) {
+      if (path === button.href) {
+        button.classList.add("border-rose-700");
+        button.classList.add("border-b-2");
+      }
+    }
+    const buttonsMenu = document.getElementsByClassName(
+      "navbar-menu-buttonsMenu"
+    ) as HTMLCollectionOf<HTMLAnchorElement>;
+    for (const button of buttonsMenu) {
+      if (path === button.href) {
+        button.classList.add("bg-rose-700");
+      }
+    }
+  });
+</script>

@@ -1,21 +1,35 @@
 ---
 import { Icon } from "astro-icon/components";
-import { getLocaleFromOtherLocale } from "../utils/i18n";
-
-const currentURL = Astro.url;
-const cLocale = Astro.currentLocale ?? "es";
 ---
 
 <div>
   <Icon name="fa-solid:language" class="inline-block mr-2" />
   <div class="inline-block [&>a]:inline-block [&>a]:px-4 [&>a]:py-2">
-    <a
-      href={getLocaleFromOtherLocale(currentURL.pathname, "es")}
-      class:list={["bg-slate-950", { ["bg-rose-700"]: cLocale === "es" }]}>ES</a
-    >
-    <a
-      href={getLocaleFromOtherLocale(currentURL.pathname, "en")}
-      class:list={["bg-slate-950", { ["bg-rose-700"]: cLocale === "en" }]}>EN</a
-    >
+    <a href="" class="global-locale" data-locale="es">ES</a>
+    <a href="" class="global-locale" data-locale="en">EN</a>
   </div>
 </div>
+
+<script>
+  window.addEventListener("load", () => {
+    const RE_LOCALE = /^\/([a-zA-Z-]+)/;
+    const path = location.pathname;
+    const match = path.match(RE_LOCALE);
+    if (match === null) return;
+    const [, locale] = match;
+    const buttons = document.getElementsByClassName(
+      "global-locale"
+    ) as HTMLCollectionOf<HTMLAnchorElement>;
+    for (const button of buttons) {
+      if (locale === button.dataset.locale) {
+        button.classList.add("bg-rose-700");
+      } else {
+        button.classList.add("bg-slate-950");
+      }
+      button.setAttribute(
+        "href",
+        path.replace(/^\/[a-zA-Z-]+/, `/${button.dataset.locale}`)
+      );
+    }
+  });
+</script>
