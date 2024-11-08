@@ -1,0 +1,62 @@
+---
+import { Image } from "astro:assets";
+import PostExcerpt from "../../components/PostExcerpt.astro";
+import Layout from "../../layouts/Layout.astro";
+import { getPosts } from "../../queries/posts";
+import profileImg from "../../assets/yo.jpg";
+import { setDefaultOptions } from "date-fns";
+import { es } from "date-fns/locale";
+
+setDefaultOptions({ locale: es });
+
+const currentLocale = Astro.currentLocale;
+
+const posts = await getPosts(currentLocale);
+---
+
+<Layout title="Alexys Hegmann dot rocks">
+  <div class="flex flex-col md:flex-row gap-4 max-w-7xl mx-auto">
+    <main
+      class="flex flex-col gap-16 md:flex-row md:gap-4 w-full md:w-3/4 md:flex-wrap"
+    >
+      {posts.map((post: unknown) => <PostExcerpt post={post} class="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1rem)]" />)}
+    </main>
+    <aside class="w-full md:w-1/4 bg-slate-700 p-4">
+      <section
+        class="mb-8 h-card vcard"
+        vocab="http://schema.org"
+        typeof="Person"
+      >
+        <Image
+          src={profileImg}
+          alt="Alexys Hegmann's pic"
+          class="rounded-full w-[150px] h-[150px] mx-auto mb-4 object-cover u-photo grayscale"
+        />
+        <h2
+          class="text-rose-600 text-2xl font-light border-b-2 border-rose-600 pb-2 mb-1"
+        >
+          Acerca de
+        </h2>
+        <p class="mb-2 leading-loose">
+          Soy un ingeniero de software con múltiples intereses. La vida no me
+          daba para separar todo por nicho, así que decidí hacer un batido de
+          todo, como jugo verde, y persentárselos con amor.
+        </p>
+        <div class="text-sm mb-8">
+          <p class="p-name fn" property="name">
+            <a
+              href="https://alexyshegmann.rocks"
+              class="u-url url"
+              property="url">Alexys Hegmann</a
+            >
+          </p>
+          <p>
+            <span class="p-locality locality">Querétaro</span>, <span
+              class="p-country-name country-name">México</span
+            > 🇲🇽.
+          </p>
+        </div>
+      </section>
+    </aside>
+  </div>
+</Layout>

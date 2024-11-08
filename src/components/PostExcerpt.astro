@@ -1,0 +1,60 @@
+---
+import { Image } from "astro:assets";
+import { format } from "date-fns";
+import { getLabelByLocale, getLocaleRoute } from "../utils/i18n";
+
+const cLocale = Astro.currentLocale ?? "es";
+const dLocale = Astro.preferredLocale ?? "es";
+
+const formatByLocale = {
+  es: {
+    date: "d ' de ' MMMM ' del ' yyyy ' a las ' HH:mm",
+  },
+  en: {
+    date: "MMMM do, yyyy ' at ' HH:mm",
+  },
+};
+
+interface Props {
+  post: any;
+  class: string;
+}
+
+const { post, class: className } = Astro.props;
+---
+
+<article class={className}>
+  <div>
+    {
+      post.data.image && (
+        <a href={getLocaleRoute(cLocale, `/blog/${post.slug}`)}>
+          <Image
+            src={post.data.image}
+            alt={post.data.title}
+            class="w-full max-h-64 object-cover mb-2 px-4"
+          />
+        </a>
+      )
+    }
+  </div>
+  <header class="px-4">
+    <h2
+      class="text-rose-600 text-2xl font-light border-b-2 border-rose-600 pb-2 mb-1 min-h-20"
+    >
+      <a href={getLocaleRoute(cLocale, `/blog/${post.slug}`)}
+        >{post.data.title}</a
+      >
+    </h2>
+    <div class="text-slate-500 text-sm mb-2">
+      {
+        format(
+          post.data.date,
+          getLabelByLocale(cLocale, "date", formatByLocale, dLocale)
+        )
+      }
+    </div>
+  </header>
+  <div class="px-4 leading-8 line-clamp-3">
+    {post.data.excerpt}
+  </div>
+</article>

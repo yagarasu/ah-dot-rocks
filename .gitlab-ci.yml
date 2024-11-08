@@ -1,0 +1,38 @@
+image: node:lts-alpine
+
+stages:
+  - build
+  - deploy
+
+build-job:
+  stage: build
+  script:
+    - echo "Compiling the code..."
+    - npm install
+    - npm run build
+    - echo "Compile complete."
+  artifacts:
+    untracked: false
+    when: on_success
+    access: all
+    expire_in: 1 days
+    paths:
+      - dist/
+      - node_modules/
+
+deploy-job:
+  stage: deploy 
+  environment: staging
+  before_script:
+    - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )' 
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $SERVER_IP >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - apk add rsync
+  script:
+    - echo "Deploying application..."
+    - rsync -azv dist/ $SERVER_USER@$SERVER_IP:$PUBLIC_PATH
+    - echo "Application successfully deployed."

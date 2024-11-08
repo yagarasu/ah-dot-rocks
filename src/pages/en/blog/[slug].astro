@@ -1,0 +1,48 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
+import { format } from "date-fns";
+import { Image } from "astro:assets";
+
+export async function getStaticPaths() {
+  let posts = await getCollection("blog");
+  return posts.map((post: any) => ({
+    props: {
+      post,
+    },
+    params: { slug: post.slug },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<Layout title="Alexys Hegmann dot rocks">
+  <div class="flex flex-col gap-4 max-w-7xl mx-auto">
+    <header class="px-4 md:px-0">
+      <div>
+        {
+          post.data.image && (
+            <Image
+              src={post.data.image}
+              alt={post.data.title}
+              class="w-full max-h-96 object-cover mb-2"
+            />
+          )
+        }
+      </div>
+      <h2
+        class="text-rose-600 text-2xl font-light border-b-2 border-rose-600 pb-2 mb-1"
+      >
+        {post.data.title}
+      </h2>
+      <div class="text-slate-500 text-sm mb-2">
+        {format(post.data.date, "MMMM do, yyyy ' at ' HH:mm")}
+      </div>
+    </header>
+    <main class="prose prose-rose prose-invert px-4 md:px-0">
+      <Content />
+    </main>
+  </div>
+</Layout>

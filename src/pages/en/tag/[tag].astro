@@ -1,0 +1,125 @@
+---
+import { Image } from "astro:assets";
+import PostExcerpt from "../../../components/PostExcerpt.astro";
+import Layout from "../../../layouts/Layout.astro";
+import { getPostsByTag, getTags } from "../../../queries/posts";
+import { getTagsData, getAllTagsData } from "../../../queries/data";
+import profileImg from "../../../assets/yo.jpg";
+import { setDefaultOptions } from "date-fns";
+import { es } from "date-fns/locale";
+import { getByLocale } from "../../../utils/i18n";
+import { Icon } from "astro-icon/components";
+import { getLocaleRoute } from "../../../utils/i18n";
+
+setDefaultOptions({ locale: es });
+
+const { tag, count } = Astro.props;
+
+export async function getStaticPaths() {
+  const defaultTagsData = await getAllTagsData();
+  const defaultTags = new Map(
+    Object.keys(defaultTagsData).map<[string, number]>((tag) => [tag, 0])
+  );
+  const tagsWithCount = await getTags("en");
+  const tags = new Map<string, number>([...defaultTags, ...tagsWithCount]);
+  return Array.from(tags).map(([tag, count]) => ({
+    props: {
+      tag,
+      count,
+    },
+    params: { tag },
+  }));
+}
+
+const posts = await getPostsByTag(tag, "en");
+const tagData = await getTagsData(tag);
+---
+
+<Layout title="Alexys Hegmann dot rocks">
+  <div class="bg-slate-950 shadow-md border-b-2 border-slate-600 mb-4">
+    {
+      tagData.banner && (
+        <Image
+          src={tagData.banner}
+          alt={getByLocale("en", tagData.label, "en")}
+          class="w-full object-cover max-h-96"
+        />
+      )
+    }
+    <div class="flex flex-row items-center m-4">
+      <h1 class="text-4xl text-rose-600 flex-grow">
+        {getByLocale("en", tagData.label, "en")}
+      </h1>
+      <div class="text-slate-400">Posts in this tag: {count}</div>
+    </div>
+  </div>
+  <div class="flex flex-col md:flex-row gap-4 max-w-7xl mx-auto">
+    <main
+      class="flex flex-col gap-16 md:flex-row md:gap-4 w-full md:w-3/4 md:flex-wrap"
+    >
+      {
+        posts.length === 0 ? (
+          <div class="w-full text-center pt-8">
+            <Icon
+              name="fa-solid:ghost"
+              class="size-24 mx-auto animate-bounce text-slate-600"
+            />
+            <div class="text-3xl">There are no articles yet</div>
+            <div class="mt-8">
+              <a
+                href={getLocaleRoute("en", "/")}
+                class="p-4 bg-rose-700 hover:bg-rose-500 transition-colors"
+              >
+                Go to the front page
+              </a>
+            </div>
+          </div>
+        ) : (
+          posts.map((post: unknown) => (
+            <PostExcerpt
+              post={post}
+              class="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1rem)]"
+            />
+          ))
+        )
+      }
+    </main>
+    <aside class="w-full md:w-1/4 bg-slate-700 p-4">
+      <section
+        class="mb-8 h-card vcard"
+        vocab="http://schema.org"
+        typeof="Person"
+      >
+        <Image
+          src={profileImg}
+          alt="Alexys Hegmann's pic"
+          class="rounded-full w-[150px] h-[150px] mx-auto mb-4 object-cover u-photo grayscale"
+        />
+        <h2
+          class="text-rose-600 text-2xl font-light border-b-2 border-rose-600 pb-2 mb-1"
+        >
+          About me
+        </h2>
+        <p class="mb-2 leading-loose">
+          I'm a Software Engineer with multiple interests. It was impossible for
+          me to split everything by theme, so I decided to blend everything and
+          make a smoothie out of it to serve it with love for you.
+        </p>
+        <div class="text-sm mb-8">
+          <p class="p-name fn" property="name">
+            <a
+              href="https://alexyshegmann.rocks"
+              class="u-url url"
+              property="url">Alexys Hegmann</a
+            >
+          </p>
+          <p>
+            <span class="p-locality locality">Querétaro</span>, <span
+              class="p-country-name country-name">México</span
+            > 🇲🇽.
+          </p>
+        </div>
+      </section>
+    </aside>
+  </div>
+</Layout>

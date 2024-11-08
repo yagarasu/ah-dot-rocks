@@ -1,0 +1,30 @@
+{
+  "personal": {
+    "label": {
+      "es": "Personal",
+      "en": "Personal"
+    },
+    "banner": "../../assets/personal.jpg"
+  },
+  "software-engineering": {
+    "label": {
+      "es": "Ingeniería de Software",
+      "en": "Software Engineering"
+    },
+    "banner": "../../assets/teclado.png"
+  },
+  "arts-and-crafts": {
+    "label": {
+      "es": "Arte y Crafts",
+      "en": "Arts and Crafts"
+    },
+    "banner": "../../assets/arts.jpg"
+  },
+  "magick": {
+    "label": {
+      "es": "Magia(k) y Ocultismo",
+      "en": "Magick and Occultism"
+    },
+    "banner": "../../assets/altar.jpg"
+  }
+}

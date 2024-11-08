@@ -1,0 +1,21 @@
+---
+import { Icon } from "astro-icon/components";
+import { getLocaleFromOtherLocale } from "../utils/i18n";
+
+const currentURL = Astro.url;
+const cLocale = Astro.currentLocale ?? "es";
+---
+
+<div>
+  <Icon name="fa-solid:language" class="inline-block mr-2" />
+  <div class="inline-block [&>a]:inline-block [&>a]:px-4 [&>a]:py-2">
+    <a
+      href={getLocaleFromOtherLocale(currentURL.pathname, "es")}
+      class:list={["bg-slate-950", { ["bg-rose-700"]: cLocale === "es" }]}>ES</a
+    >
+    <a
+      href={getLocaleFromOtherLocale(currentURL.pathname, "en")}
+      class:list={["bg-slate-950", { ["bg-rose-700"]: cLocale === "en" }]}>EN</a
+    >
+  </div>
+</div>

@@ -1,50 +1,40 @@
 ---
+import BaseLayout from "./BaseLayout.astro";
+import Header from "../components/Header.astro";
+import { Image } from "astro:assets";
+import licenseImg from "../assets/by-nc-sa.png";
+
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
-<style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
-</style>
+<BaseLayout title={title}>
+  <div
+    class="min-h-screen min-w-full bg-slate-800 text-slate-50 overflow-x-hidden"
+  >
+    <Header />
+    <div class="pt-20 min-h-[calc(100vh-175px)]">
+      <slot />
+    </div>
+    <footer class="bg-slate-950 mt-16 p-4 border-t-2 border-slate-700">
+      <section class="flex flex-col items-center">
+        <p class="mb-4 text-xs">
+          Copyright 2024. Licenciado bajo <a
+            href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es"
+            >CC BY-NC-SA 4.0</a
+          >
+        </p>
+        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es"
+          ><Image
+            src={licenseImg}
+            alt="Creative Commons BY-NC-SA 4.0"
+            class="w-32"
+          />
+        </a>
+      </section>
+    </footer>
+  </div>
+</BaseLayout>
