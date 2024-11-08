@@ -1,0 +1,46 @@
+---
+import { Image } from "astro:assets";
+import { getLocaleRoute } from "../utils/i18n";
+
+interface Props {
+  posts: unknown[];
+}
+
+const cLocale = Astro.currentLocale ?? "es";
+
+const { posts } = Astro.props;
+---
+
+<div class="flex flex-col gap-4">
+  {
+    posts.map((post) => (
+      <article class="flex flex-row gap-4 group">
+        <div class="w-1/4">
+          {post.data.image && (
+            <a href={getLocaleRoute(cLocale, `/blog/${post.slug}`)}>
+              <Image
+                src={post.data.image}
+                alt={post.data.title}
+                class="w-full max-h-32 object-cover rounded-sm shadow-md"
+              />
+            </a>
+          )}
+        </div>
+        <div class="w-3/4">
+          <a
+            href={getLocaleRoute(cLocale, `/blog/${post.slug}`)}
+            class="font-bold group-hover:text-rose-600"
+          >
+            {post.data.title}
+          </a>
+          <a
+            href={getLocaleRoute(cLocale, `/blog/${post.slug}`)}
+            class="line-clamp-3 text-slate-500 text-sm"
+          >
+            {post.data.excerpt}
+          </a>
+        </div>
+      </article>
+    ))
+  }
+</div>
